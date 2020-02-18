@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body class="container pt-15">
+    <div class="section mt-5 centered" align="center">
+        <form method="post" action="/text">
+            <div class="form-group">
+                <span>Enter a subject to build graph on </span>
+                <input type="text" name="text" class="form-control" ><br>
+                <input type="submit">
+            </div>
+            <p><b>{% with messages = get_flashed_messages() %}
+                {% for message in messages %}
+                    {{message}}
+                    {% endfor %}
+                     {% endwith %}</b></p>
+        </form>
+    </div>
+    
+    <div class="row">
+        <hr>
+        <form action="/file" method="POST" enctype="multipart/form-data">
+
+            <div class="form-group">
+              <div class="file">
+                <input type="file" class="file-input" name="file" id="file">
+                <label class="custom-file" for="image">Select a file...</label>
+              </div>
+            </div>  
+            <button type="submit" class="btn btn-primary">Upload</button>
+         </form>
+    </div>
+    
+</body>
+</html>
+
+
