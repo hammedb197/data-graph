@@ -12,7 +12,7 @@ headers = {
     # http://www.mediawiki.org/wiki/API:Main_page#Identifying_your_client
     "User-Agent": "Definitions/1.0 (Contact rob@example.com for info.)"
 }
-
+# query wiki api to get categories upto 6th child
 def get_wiki_data(q):
     
     params = {
@@ -34,9 +34,9 @@ def get_wiki_data(q):
                 for i in json["query"]["pages"]:
                     content = json["query"]["pages"][i]['extract']
                     title = json["query"]["pages"][i]['title']
-                    wiki_data = preprocess(content)
-                    sentiment_ =  sentiment(wiki_data)
-                    ner_ = ner(wiki_data)
+                    wiki_data = preprocess(content) #preprocess
+                    sentiment_ =  sentiment(wiki_data) #sentiment
+                    ner_ = ner(wiki_data) #sentiment
                     person = []
                     location = []
                     organization = []
@@ -47,6 +47,7 @@ def get_wiki_data(q):
                             organization.append({x.label_:x.text})
                         if x.label_ == 'GPE':
                             location.append({x.label_:x.text})
+                    # save to db
                     sendToNeo4j(location=location, sentiment_=sentiment_, content=content, title=title, organization=organization, person=person)
             except requests.exceptions.NoneType as err:
                 print(err)

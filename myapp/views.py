@@ -17,6 +17,8 @@ ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'doc', 'docx'}
 def allowed_file(filename):
     return '.' in filename and filename.split('.')[-1].lower() in ALLOWED_EXTENSIONS
 
+
+"home"
 @app.route('/')
 def home():
     return render_template('home.html')
@@ -30,12 +32,14 @@ def get_data_from_wiki():
             return redirect(url_for('home'))
         
         else:
-            
+            # form data
             text = request.form['text']
+            # query wiki
             get_wiki_data(text) 
+            
             # send_topic(text)
             return redirect(url_for('home'))
-        
+#file upload (pdf, documetn, images)
 @app.route('/file', methods=['POST'])
 def get_data_from_files():
     if request.method == 'POST':

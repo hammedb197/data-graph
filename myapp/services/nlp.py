@@ -12,6 +12,7 @@ from pprint import pprint
 
 nlp = en_core_web_sm.load()
 
+#sentiment analysis model; extracting just Positive and negative sentiment(allen nlp model)
 def sentiment(wiki_data):
   predictor = Predictor.from_path("https://s3-us-west-2.amazonaws.com/allennlp/models/sst-2-basic-classifier-glove-2019.06.27.tar.gz")
   predict  = predictor.predict(wiki_data)
@@ -22,7 +23,7 @@ def sentiment(wiki_data):
     label = 'Negative'
   return label
 
-    
+# named entity recognition model   (Spacy)
 def ner(text):
     doc = nlp(text)
     return doc.ents

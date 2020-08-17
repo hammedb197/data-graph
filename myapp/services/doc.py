@@ -15,11 +15,11 @@ EXTRACT FROM doc
 '''    
 def extract_text_from_doc(file):
     content = textract.process(file)
-    doc_ = preprocess(content)
-    title = get_title(doc_)
-    sentiment_ = sentiment(doc_)
-    ner_ = ner(doc_)
-    person = []
+    doc_ = preprocess(content) #content
+    title = get_title(doc_) #title
+    sentiment_ = sentiment(doc_) #sentiment model
+    ner_ = ner(doc_) #named entity recognition
+    person = [] 
     location = []
     organization = []
     for x in ner_:
@@ -29,6 +29,7 @@ def extract_text_from_doc(file):
         organization.append({x.label_:x.text})
       if x.label_ == 'GPE':
         location.append({x.label_:x.text})
+    #save to db after extraction
     sendToNeo4j(location=location, sentiment_=sentiment_, content=content, title=title, organization=organization, person=person)
 
 

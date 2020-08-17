@@ -4,7 +4,9 @@ from nltk.corpus import stopwords
 
 stopwords = set(stopwords.words('english'))
 
-
+"""
+Preprocess text using regex
+"""
 def preprocess(data):
     if type(data) == bytes:
         data = data.decode('utf-8')

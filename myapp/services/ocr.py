@@ -33,8 +33,9 @@ def extract_from_images(file):
         if h > average_ * 2:
             cv2.drawContours(mask, [c], -1, 0, -1)
             
-    title = pytesseract.image_to_string(mask)
-    content = pytesseract.image_to_string(img)
+    title = pytesseract.image_to_string(mask)#title
+    content = pytesseract.image_to_string(img)#extracted content
+    # conditions
     if len(content) == 0:
         content = textract.process(file)
     image = preprocess(content)
@@ -52,6 +53,7 @@ def extract_from_images(file):
         organization.append({x.label_:x.text})
       if x.label_ == 'GPE':
         location.append({x.label_:x.text})
+      # save to db
     sendToNeo4j(location=location, sentiment_=sentiment_, content=content, title=title, organization=organization, person=person)
     
     
